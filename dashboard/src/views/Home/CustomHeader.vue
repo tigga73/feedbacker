@@ -11,6 +11,7 @@
         </div>
         <div class="flex">
           <button
+            @click="() => emit('login')"
             class="px-6 py-2 font-bold rounded-full text-white focus:outline-none"
           >
             Entrar
@@ -47,8 +48,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  setup(_, { emit }) {
+    return { emit }
+  },
+}
 </script>
+
 <style lang="postcss" scoped>
 .header {
   @apply bg-brand-main w-full flex justify-center;
