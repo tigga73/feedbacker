@@ -29,7 +29,9 @@ export default {
       }
     })
 
-    function handleAccountCreate() {}
+    function handleAccountCreate() {
+      modal.open({ component: 'ModalAccountCreate' })
+    }
 
     function handleLogin() {
       modal.open({ component: 'ModalLogin' })

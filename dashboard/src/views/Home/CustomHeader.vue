@@ -18,6 +18,7 @@
           </button>
           <button
             class="px-6 py-2 font-bold bg-white rounded-full text-brand-main focus:outline-none"
+            @click="() => emit('create-account')"
           >
             Crie uma conta
           </button>
