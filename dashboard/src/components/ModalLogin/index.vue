@@ -1,10 +1,10 @@
 <template>
-  <div class="flex justify-between">
+  <div class="flex justify-between items-center">
     <h1 class="text-4xl font-black text-gray-800">Entre na sua conta</h1>
+    <button @click="close" class="text-4xl text-gray-600 focus:outline-none">
+      &times;
+    </button>
   </div>
-  <button @click="close" class="text-4xl text-gray-600 focus:outline-none">
-    &times;
-  </button>
 
   <div class="mt-16">
     <form @submit.prevent="handleSubmit">
@@ -24,14 +24,14 @@
         >
       </label>
 
-      <label for="" class="block">
+      <label for="" class="block mt-9">
         <span class="text-lg font-medium text-gray-800">Senha</span>
         <input
           v-model="state.password.value"
           type="password"
           :class="{ 'border-brand-danger': !!state.password.errorMessage }"
           class="black w-full px-4 py-3 mt-1 text-lg bg-gray-100 border-2 border-transparent rounded"
-          placeholder="jane.doe@mail.com"
+          placeholder="***"
         />
         <span
           v-if="!!state.email.errorMessage"
@@ -54,29 +54,41 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
+import { useField } from 'vee-validate'
 import useModal from '../../hooks/useModal'
+import {
+  validateEmptyAndLength3,
+  validateEmptyAndEmail,
+} from '../../utils/validators'
 
 export default {
   name: 'ModalLogin',
   setup() {
     const modal = useModal()
 
+    const { value: emailValue, errorMessage: emailErrorMessage } = useField(
+      'email',
+      validateEmptyAndEmail
+    )
+    const { value: passwordValue, errorMessage: passwordErrorMessage } =
+      useField('password', validateEmptyAndLength3)
+
     const state = reactive({
       hasErrors: false,
       isLoading: false,
       email: {
-        value: '',
-        errorMessage: '',
+        value: emailValue,
+        errorMessage: emailErrorMessage,
       },
       password: {
-        value: '',
-        errorMessage: '',
+        value: passwordValue,
+        errorMessage: passwordErrorMessage,
       },
     })
 
     function handleSubmit() {}
 
-    return { state, close: modal.close }
+    return { state, close: modal.close, handleSubmit }
   },
 }
 </script>
