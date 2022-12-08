@@ -34,9 +34,9 @@
           placeholder="***"
         />
         <span
-          v-if="!!state.email.errorMessage"
+          v-if="!!state.password.errorMessage"
           class="block font-medium text-brand-danger"
-          >{{ state.email.errorMessage }}</span
+          >{{ state.password.errorMessage }}</span
         >
       </label>
 
