@@ -46,7 +46,8 @@
         :class="{ 'opacity-50': state.isLoading }"
         class="px-8 py-3 mt-10 text-2xl font-bold text-white rounded-full bg-brand-main transition-all duration-150 focus:outline-none"
       >
-        Entrar
+        <icon v-if="state.isLoading" name="loading" class="animate-spin" />
+        <span v-else>Entrar</span>
       </button>
     </form>
   </div>
@@ -63,9 +64,11 @@ import {
   validateEmptyAndEmail,
 } from '../../utils/validators'
 import services from '../../services'
+import Icon from '../Icon'
 
 export default {
   name: 'ModalLogin',
+  components: { Icon },
   setup() {
     const modal = useModal()
     const router = useRouter()
